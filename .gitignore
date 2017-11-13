@@ -1,0 +1,7 @@
+.DS_Store
+.idea/
+TillDeath.iml
+out/
+res/
+myBash
+lwjgl-release-3.1.3-custom/
