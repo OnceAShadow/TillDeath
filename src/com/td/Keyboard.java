@@ -98,15 +98,15 @@ public class Keyboard {
         // A - Z
         ////
         if (glfwGetKey(window, GLFW_KEY_W) == GL_TRUE) {
-        
-        
+            Main.toonPosY += 0.005f;
+            
             if (printKeysAndMouseToConsole) {
                 System.out.print(" W ");
             }
         }
     
         if (glfwGetKey(window, GLFW_KEY_S) == GL_TRUE) {
-    
+            Main.toonPosY -= 0.005f;
     
             if (printKeysAndMouseToConsole) {
                 System.out.print(" S ");
@@ -114,16 +114,16 @@ public class Keyboard {
         }
     
         if (glfwGetKey(window, GLFW_KEY_A) == GL_TRUE) {
-    
-    
+            Main.toonPosX -= 0.005f;
+            
             if (printKeysAndMouseToConsole) {
                 System.out.print(" A ");
             }
         }
     
         if (glfwGetKey(window, GLFW_KEY_D) == GL_TRUE) {
-    
-    
+            Main.toonPosX += 0.005f;
+            
             if (printKeysAndMouseToConsole) {
                 System.out.print(" D ");
             }

@@ -6,6 +6,8 @@ import org.lwjgl.opengl.GL;
 public class Main {
     
     public static Keyboard keyboard;
+    public static float toonPosX;
+    public static float toonPosY;
     
     public static void main(String[] args) {
         if (!glfwInit()) {
@@ -13,7 +15,7 @@ public class Main {
             System.exit(1);
         }
     
-        long win = glfwCreateWindow(640,480, "Window", 0 , 0);
+        long win = glfwCreateWindow(800,600, "Window", 0 , 0);
         keyboard = new Keyboard(win);
         glfwShowWindow(win);
         glfwMakeContextCurrent(win);
@@ -29,16 +31,16 @@ public class Main {
             
             glBegin(GL_QUADS);
                 glTexCoord2f(0,0);
-                glVertex2f(-0.5f, 0.5f);
+                glVertex2f(-0.20f + toonPosX, 0.20f + toonPosY);
     
-                glTexCoord2f(0,1);
-                glVertex2f(0.5f, 0.5f);
+                glTexCoord2f(1,0);
+                glVertex2f(0.20f + toonPosX, 0.20f + toonPosY);
                 
                 glTexCoord2f(1,1);
-                glVertex2f(0.5f, -0.5f);
+                glVertex2f(0.20f + toonPosX, -0.20f + toonPosY);
                 
-                glTexCoord2f(1,0);
-                glVertex2f(-0.5f, -0.5f);
+                glTexCoord2f(0,1);
+                glVertex2f(-0.20f + toonPosX, -0.20f + toonPosY);
             glEnd();
     
             tex.bind();
