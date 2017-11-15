@@ -14,14 +14,15 @@ public class Main {
             System.err.println("GLFW Failed to initialize!");
             System.exit(1);
         }
-    
+        
         long win = glfwCreateWindow(1280,800, "Window", 0 , 0);
         keyboard = new Keyboard(win);
         glfwShowWindow(win);
         glfwMakeContextCurrent(win);
         GL.createCapabilities();
-        
         glEnable(GL_TEXTURE_2D);
+        
+        Model model = Helper.createModel();
         Texture tex = new Texture("./res/Toon004.png");
         
         while(!glfwWindowShouldClose(win)) {
@@ -29,21 +30,9 @@ public class Main {
             glfwPollEvents();
             glClear(GL_COLOR_BUFFER_BIT);
             
-            glBegin(GL_QUADS);
-                glTexCoord2f(0,0);
-                glVertex2f(-0.036f + toonPosX, 0.08f + toonPosY);
-                
-                glTexCoord2f(1,0);
-                glVertex2f(0.036f + toonPosX, 0.08f + toonPosY);
-                
-                glTexCoord2f(1,1);
-                glVertex2f(0.036f + toonPosX, -0.08f + toonPosY);
-                
-                glTexCoord2f(0,1);
-                glVertex2f(-0.036f + toonPosX, -0.08f + toonPosY);
-            glEnd();
-    
             tex.bind();
+            model.render();
+            
             glfwSwapBuffers(win);
         }
     
