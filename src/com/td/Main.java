@@ -15,14 +15,14 @@ public class Main {
             System.exit(1);
         }
     
-        long win = glfwCreateWindow(800,600, "Window", 0 , 0);
+        long win = glfwCreateWindow(1280,800, "Window", 0 , 0);
         keyboard = new Keyboard(win);
         glfwShowWindow(win);
         glfwMakeContextCurrent(win);
         GL.createCapabilities();
         
         glEnable(GL_TEXTURE_2D);
-        Texture tex = new Texture("./res/Drive.png");
+        Texture tex = new Texture("./res/Toon004.png");
         
         while(!glfwWindowShouldClose(win)) {
             keyboard.checkKeyboardAndMouse();
@@ -31,16 +31,16 @@ public class Main {
             
             glBegin(GL_QUADS);
                 glTexCoord2f(0,0);
-                glVertex2f(-0.20f + toonPosX, 0.20f + toonPosY);
-    
+                glVertex2f(-0.036f + toonPosX, 0.08f + toonPosY);
+                
                 glTexCoord2f(1,0);
-                glVertex2f(0.20f + toonPosX, 0.20f + toonPosY);
+                glVertex2f(0.036f + toonPosX, 0.08f + toonPosY);
                 
                 glTexCoord2f(1,1);
-                glVertex2f(0.20f + toonPosX, -0.20f + toonPosY);
+                glVertex2f(0.036f + toonPosX, -0.08f + toonPosY);
                 
                 glTexCoord2f(0,1);
-                glVertex2f(-0.20f + toonPosX, -0.20f + toonPosY);
+                glVertex2f(-0.036f + toonPosX, -0.08f + toonPosY);
             glEnd();
     
             tex.bind();
