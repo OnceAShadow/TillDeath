@@ -34,6 +34,7 @@ public class Main {
             
             //tex.bind();
             shader.bind();
+            shader.setUniform("green", 0);
             model.render();
             
             glfwSwapBuffers(win);

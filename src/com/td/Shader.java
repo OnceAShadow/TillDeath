@@ -24,7 +24,7 @@ public class Shader {
         }
         
         fs = glCreateShader(GL_FRAGMENT_SHADER);
-        glShaderSource(fs, readFile(filename + ".fs"));
+        glShaderSource(fs, readFile(filename + ".rx"));
         glCompileShader(fs);
         if (glGetShaderi(fs, GL_COMPILE_STATUS) != 1) {
             System.out.println("Fragment Shader Error");
@@ -35,30 +35,6 @@ public class Shader {
         glAttachShader(program, vs);
         glAttachShader(program, fs);
         validateProgram();
-    }
-    
-    private void createVertexShader(String filename) {
-        vs = glCreateShader(GL_VERTEX_SHADER);
-        glShaderSource(GL_VERTEX_SHADER, readFile(filename));
-        glCompileShader(vs);
-        if (glGetShaderi(vs, GL_COMPILE_STATUS) != 1) {
-            System.out.println("Vertex Shader Error");
-            System.err.println(glGetShaderInfoLog(vs));
-            System.exit(1);
-        }
-        glAttachShader(program, vs);
-    }
-    
-    private void createFragmentShader(String filename) {
-        fs = glCreateShader(GL_FRAGMENT_SHADER);
-        glShaderSource(GL_FRAGMENT_SHADER, readFile(filename));
-        glCompileShader(fs);
-        if (glGetShaderi(fs, GL_COMPILE_STATUS) != 1) {
-            System.out.println("Fragment Shader Error");
-            System.err.println(glGetShaderInfoLog(fs));
-            System.exit(1);
-        }
-        glAttachShader(program, fs);
     }
 
     private void validateProgram() {
@@ -93,6 +69,14 @@ public class Shader {
             e.printStackTrace();
         }
         return string.toString();
+    }
+    
+    public void setUniform(String name, int value) {
+        int location = glGetUniformLocation(program, name);
+        
+        if (location != -1) {
+            glUniform1i(location, value);
+        }
     }
     
     public void bind() {
