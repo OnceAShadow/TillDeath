@@ -22,9 +22,30 @@ public class Main {
         GL.createCapabilities();
         glEnable(GL_TEXTURE_2D);
         
-        Model model = Helper.createModel();
-        Shader shader = new Shader("shader");
         
+        
+        
+        float[] vertices = new float[] {
+                -0.5f, 0.5f, 0, // Top Left         0
+                0.5f, 0.5f, 0, // Top Right         1
+                0.5f, -0.5f, 0, // Bottom Right     2
+                -0.5f, -0.5f, 0 // Bottom Left     3
+        };
+        
+        float[] textures = new float[] {
+                0,0,
+                1,0,
+                1,1,
+                0,1
+        };
+    
+        int[] indices = new int[] {
+                0,1,2,
+                2,3,0
+        };
+        
+        Model model = new Model(vertices, textures, indices);
+        Shader shader = new Shader("shader");
         //Texture tex = new Texture("./res/Toon004.png");
 
         while(!glfwWindowShouldClose(win)) {
@@ -33,8 +54,9 @@ public class Main {
             glClear(GL_COLOR_BUFFER_BIT);
             
             //tex.bind();
+            
+            //shader.setUniform("green", 0);
             shader.bind();
-            shader.setUniform("green", 0);
             model.render();
             
             glfwSwapBuffers(win);

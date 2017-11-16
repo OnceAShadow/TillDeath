@@ -4,6 +4,7 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL15.*;
+import static org.lwjgl.opengl.GL20.*;
 
 public class Model {
     
@@ -17,19 +18,17 @@ public class Model {
 
         vertID = glGenBuffers();
         glBindBuffer(GL_ARRAY_BUFFER, vertID);
-        glBufferData(GL_ARRAY_BUFFER, createBuffer(vertices), GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, createFloatBuffer(vertices), GL_STATIC_DRAW);
         
         textID = glGenBuffers();
         glBindBuffer(GL_ARRAY_BUFFER, textID);
-        glBufferData(GL_ARRAY_BUFFER, createBuffer(textureCoords), GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, createFloatBuffer(textureCoords), GL_STATIC_DRAW);
     
         indiID = glGenBuffers();
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indiID);
-        IntBuffer indicesBuffer = BufferUtils.createIntBuffer(indices.length);
-        indicesBuffer.put(indices);
-        indicesBuffer.flip();
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, createIntBuffer(indices), GL_STATIC_DRAW);
         
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesBuffer, GL_STATIC_DRAW);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
      }
      
@@ -46,17 +45,23 @@ public class Model {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indiID);
         glDrawElements(GL_TRIANGLES, drawCount, GL_UNSIGNED_INT, 0);
         
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
         glDisableClientState(GL_VERTEX_ARRAY);
         glDisableClientState(GL_TEXTURE_COORD_ARRAY);
      }
      
-     private FloatBuffer createBuffer(float[] data) {
+     private FloatBuffer createFloatBuffer(float[] data) {
          FloatBuffer buffer = BufferUtils.createFloatBuffer(data.length);
          buffer.put(data);
          buffer.flip();
-         
+         return buffer;
+     }
+     
+     private IntBuffer createIntBuffer(int[] data) {
+         IntBuffer buffer = BufferUtils.createIntBuffer(data.length);
+         buffer.put(data);
+         buffer.flip();
          return buffer;
      }
 }

@@ -1,15 +1,15 @@
 package com.td;
+import static org.lwjgl.opengl.GL20.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import static org.lwjgl.opengl.GL20.*;
 
 public class Shader {
 
     private int program;
-    private int vs; // Works all Vertices
-    private int fs; // Gives Things Color/Texture/Effects
+    private int vs;
+    private int fs;
     
     public Shader(String filename) {
         program = glCreateProgram();
@@ -34,12 +34,9 @@ public class Shader {
         
         glAttachShader(program, vs);
         glAttachShader(program, fs);
-        validateProgram();
-    }
-
-    private void validateProgram() {
-        glBindAttribLocation(program, 0, "vertices");
         
+        glBindAttribLocation(program, 0, "vertices");
+    
         glLinkProgram(program);
         if (glGetProgrami(program, GL_LINK_STATUS) != 1) {
             System.err.println(glGetProgramInfoLog(program));
@@ -52,7 +49,7 @@ public class Shader {
             System.exit(1);
         }
     }
-    
+
     private String readFile(String filename) {
         StringBuilder string = new StringBuilder();
         BufferedReader br;
@@ -66,6 +63,7 @@ public class Shader {
             }
             br.close();
         } catch (IOException e) {
+            System.out.println("In Catch from File Reader");
             e.printStackTrace();
         }
         return string.toString();
