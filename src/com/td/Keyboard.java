@@ -5,7 +5,7 @@ import static org.lwjgl.opengl.GL11.GL_TRUE;
 public class Keyboard {
     
     private long window;
-    private boolean printKeysAndMouseToConsole = true;
+    private boolean printKeysAndMouseToConsole = false;
     
     public Keyboard(long win) {
         window = win;

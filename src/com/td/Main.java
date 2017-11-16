@@ -23,14 +23,17 @@ public class Main {
         glEnable(GL_TEXTURE_2D);
         
         Model model = Helper.createModel();
-        Texture tex = new Texture("./res/Toon004.png");
+        Shader shader = new Shader("shader");
         
+        //Texture tex = new Texture("./res/Toon004.png");
+
         while(!glfwWindowShouldClose(win)) {
             keyboard.checkKeyboardAndMouse();
             glfwPollEvents();
             glClear(GL_COLOR_BUFFER_BIT);
             
-            tex.bind();
+            //tex.bind();
+            shader.bind();
             model.render();
             
             glfwSwapBuffers(win);
